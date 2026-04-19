@@ -1,0 +1,2908 @@
+{
+  "info": {
+    "_postman_id": "71949ceb-7763-4a21-843f-a6ac06d7baea",
+    "name": "Team3_NinjaWarrior",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54134264"
+  },
+  "item": [
+    {
+      "name": "User Sign In",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "var jsonData = pm.response.json();\r",
+              "if (jsonData.token) {\r",
+              "    pm.collectionVariables.set(\"token\", jsonData.token);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"userLoginEmailId\": \"Team03@gmail.com\",\r\n\"password\": \"Team03@3003\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program for Id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();\r",
+              "\r",
+              "if (jsonData && jsonData.programName) {\r",
+              "    pm.collectionVariables.set(\"programName\", jsonData.programName);\r",
+              "}\r",
+              "if (jsonData.programId) {\r",
+              "    pm.collectionVariables.set(\"ProgramId\", jsonData.programId);\r",
+              "    pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "    });\r",
+              "    //pm.execution.setNextRequest(\"Add New Program for Name\"); \r",
+              "    pm.execution.setNextRequest(\"Update Program by ProgramName to get ID\"); \r",
+              "}\r",
+              "else if (pm.response.code === 400 || pm.response.code === 409) {\r",
+              "    var message = jsonData.message;\r",
+              "    console.log(jsonData.message);\r",
+              "    if(message && message == \"cannot create program , since already exists\")\r",
+              "    {\r",
+              "        console.log(\"User exists. Jumping to Activation step.\");\r",
+              "        pm.test(\"Status code is 400\", function () {\r",
+              "        pm.response.to.have.status(400);\r",
+              "        });\r",
+              "        pm.execution.setNextRequest(\"Update Program by ProgramName to get ID\"); \r",
+              "    }   \r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"Index order\",\r\n\"programName\": \"Set order\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName to get ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "var jsonData = pm.response.json();\r",
+              "if (jsonData.programName) {\r",
+              "    pm.collectionVariables.set(\"programName\", jsonData.programName);\r",
+              "}\r",
+              "if (jsonData.programId) {\r",
+              "    pm.collectionVariables.set(\"ProgramId\", jsonData.programId);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"Index order\",\r\n\"programName\": \"Set order\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/{{programName}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "{{programName}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program for Name",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();\r",
+              "\r",
+              "if (jsonData && jsonData.programName) {\r",
+              "    pm.collectionVariables.set(\"ProgramName\", jsonData.programName);\r",
+              "     pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "    });\r",
+              "   // pm.execution.setNextRequest(\"Add New Program with invalid endpoint\"); \r",
+              "    pm.execution.setNextRequest(\"Update Program by ProgramName for Name\"); \r",
+              "}\r",
+              "else if (pm.response.code === 400 || pm.response.code === 409) {\r",
+              "    var message = jsonData.message;\r",
+              "    console.log(jsonData.message);\r",
+              "    if(message && message == \"cannot create program , since already exists\")\r",
+              "    {\r",
+              "        console.log(\"User exists. Jumping to Activation step.\");\r",
+              "        pm.test(\"Status code is 400\", function () {\r",
+              "        pm.response.to.have.status(400);\r",
+              "        });\r",
+              "        pm.execution.setNextRequest(\"Update Program by ProgramName for Name\"); \r",
+              "    }   \r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"Java Stack\",\r\n\"programName\": \"Design form\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName for Name",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "var jsonData = pm.response.json();\r",
+              "if (jsonData.programName) {\r",
+              "    pm.collectionVariables.set(\"ProgramName\", jsonData.programName);\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"Java Stack\",\r\n\"programName\": \"Design form\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/{{ProgramName}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "{{ProgramName}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program with invalid endpoint",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 404\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"SmokeTesting\",\r\n\"programName\": \"End to End Testing\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogra",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogra"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program for with empty Description",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"\",\r\n\"programName\": \"Binary\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program with empty Program Name",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"SmokeTesting\",\r\n\"programName\": \"\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program with empty Program Status",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"SmokeTesting\",\r\n\"programName\": \"Binary\",\r\n\"programStatus\": \"\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program Name with numbers only",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"SmokeTesting\",\r\n\"programName\": \"5634575687\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program Name with special characters only",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"SmokeTesting\",\r\n\"programName\": \"@##^%*&(%$#\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program Name with letters, numbers & special characters",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"SmokeTesting\",\r\n\"programName\": \"API^%*&(678\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program Name with more than 25 letters",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"SmokeTesting\",\r\n\"programName\": \"End to End Testing Regression Testing Smoke Testing\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program Name with less than 4 letters",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"SmokeTesting\",\r\n\"programName\": \"End\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program Description with special characters only",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"#%$#$%&%&*^\",\r\n\"programName\": \"Binary\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program Description with numbers only",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"23456678678\",\r\n\"programName\": \"Binary\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program Description with letters, numbers & special characters",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"API#%^%&&3445\",\r\n\"programName\": \"Binary\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program Description with more than 25 letters",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"API Testing Load Testing Manual Tsting\",\r\n\"programName\": \"Binary\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program Description with less than 4 letters",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"API\",\r\n\"programName\": \"Binary\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program Status with numbers only",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"SmokeTesting\",\r\n\"programName\": \"Binary\",\r\n\"programStatus\": \"4567788\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program Status with special characters only",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"SmokeTesting\",\r\n\"programName\": \"Binary\",\r\n\"programStatus\": \"$#%#$%^%^&\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add New Program Status with letters, numbers & special characters",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\": \"SmokeTesting\",\r\n\"programName\": \"Binary\",\r\n\"programStatus\": \"Active@34&56\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/saveprogram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "saveprogram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Programs",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/allPrograms",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "allPrograms"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Programs with no Auth",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 401\", function () {\r",
+              "    pm.response.to.have.status(401);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/allPrograms",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "allPrograms"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Programs with invalid Endpoint",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 404\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/allProgram",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "allProgram"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Program by ProgramId",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/programs/{{ProgramId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "programs",
+            "{{ProgramId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Program by ProgramId of Inactive program",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/programs/199",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "programs",
+            "199"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Program by ProgramId with no Auth",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 401\", function () {\r",
+              "    pm.response.to.have.status(401);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/programs/200",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "programs",
+            "200"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Program by ProgramId with invalid Endpoint",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 405\", function () {\r",
+              "    pm.response.to.have.status(405);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/200",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "200"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Program by ProgramId with invalid programId",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 404\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/programs/23",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "programs",
+            "23"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Program by ProgramId with special character programId",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/programs/$%%^6",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "programs",
+            "$%%^6"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Program by ProgramId with letters programId",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 404\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/programs/tyuu",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "programs",
+            "tyuu"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET All Programs with Users",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/allProgramsWithUsers",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "allProgramsWithUsers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET All Programs with Users with no Auth",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 401\", function () {\r",
+              "    pm.response.to.have.status(401);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/allProgramsWithUsers",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "allProgramsWithUsers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET All Programs with Users with invalid Endpoint",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 404\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/allProgramsWithUser",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "allProgramsWithUser"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName with invalid Endpoint",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"Sanity\",\r\n\"programName\": \"Functional\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/progra/End to End Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "progra",
+            "End to End Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName with invalid ProgramName",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"Sanity\",\r\n\"programName\": \"Functional\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName with Empty Program Name",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"Sanity\",\r\n\"programName\": \"\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/White Box Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "White Box Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName with Empty Program Status",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"Sanity\",\r\n\"programName\": \"Functional\",\r\n\"programStatus\": \"\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/White Box Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "White Box Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName with Empty Program Description",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"\",\r\n\"programName\": \"Functional\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/White Box Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "White Box Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName Program Name with numbers only",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"Sanity\",\r\n\"programName\": \"46457457\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/End to End Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "End to End Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName Program Name with Special character only",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"Sanity\",\r\n\"programName\": \"$%$%^\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/End to End Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "End to End Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName Program Name with letters, numbers  & Special character",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"Sanity\",\r\n\"programName\": \"API78$\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/End to End Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "End to End Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName Program Name with more than 25 letters",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"Sanity\",\r\n\"programName\": \"API Testing Load Testing Sanity Testing \",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/End to End Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "End to End Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName Program Name with less than 4 letters",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"Sanity\",\r\n\"programName\": \"API\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/End to End Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "End to End Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName Description contains  only numeric input.",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"34536\",\r\n\"programName\": \"Functional\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/White Box Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "White Box Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName Description contains  only special characters",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"##4##\",\r\n\"programName\": \"Functional\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/White Box Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "White Box Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName Description contains lettters numbers & special characters",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"API4##\",\r\n\"programName\": \"Functional\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/White Box Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "White Box Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName Description with more than 25 letters",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"Functional Non-functional Validation\",\r\n\"programName\": \"Functional\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/White Box Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "White Box Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName  Program Status contains only numeric input.",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"Sanity\",\r\n\"programName\": \"Functional\",\r\n\"programStatus\": \"345\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/White Box Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "White Box Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName  Program Status contains only special characters",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"Sanity\",\r\n\"programName\": \"Functional\",\r\n\"programStatus\": \"&&##@@\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/White Box Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "White Box Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName Program Status with letters, numbers & special characters",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"Sanity\",\r\n\"programName\": \"Functional\",\r\n\"programStatus\": \"ACT25$\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/White Box Testing",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "White Box Testing"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Program by ProgramName with already deleted ProgramName",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"programDescription\":\"Smoke Testing\",\r\n\"programName\": \"Functional\",\r\n\"programStatus\": \"Active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/program/Functional",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "program",
+            "Functional"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Program By ProgramID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/deletebyprogid/{{ProgramId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "deletebyprogid",
+            "{{ProgramId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Program By ProgramID with No Auth",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/deletebyprogid/304",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "deletebyprogid",
+            "304"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Program with special character Program Id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/deletebyprogid/***",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "deletebyprogid",
+            "***"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Program with letters Program Id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/deletebyprogid/KKK",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "deletebyprogid",
+            "KKK"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Program By ProgramID with invalid Endpoint",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/deletebyprog/304",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "deletebyprog",
+            "304"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Program By ProgramID with already deleted Program",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/deletebyprogid/199",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "deletebyprogid",
+            "199"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Program By ProgramName",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/deletebyprogname/{{ProgramName}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "deletebyprogname",
+            "{{ProgramName}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Program By ProgramName with invalid Endpoint",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/deletebyprognam/non-Functional",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "deletebyprognam",
+            "non-Functional"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Program by ProgramName with No Auth",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/deletebyprogname/non-Functional",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "deletebyprogname",
+            "non-Functional"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Program by numeric ProgramName",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/deletebyprogname/453456457",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "deletebyprogname",
+            "453456457"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Program by Special character ProgramName",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseUrl}}/deletebyprogname/$#%#$%^$%^&",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "deletebyprogname",
+            "$"
+          ],
+          "hash": "%#$%^$%^&"
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "baseUrl",
+      "value": ""
+    },
+    {
+      "key": "ProgramId",
+      "value": ""
+    },
+    {
+      "key": "ProgramName",
+      "value": ""
+    },
+    {
+      "key": "programName",
+      "value": ""
+    }
+  ]
+}
