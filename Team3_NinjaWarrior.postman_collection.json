@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "71949ceb-7763-4a21-843f-a6ac06d7baea",
+    "_postman_id": "1757a8fc-0a40-480f-ab36-52277e7213bd",
     "name": "Team3_NinjaWarrior",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "54134264"
+    "_exporter_id": "25015237"
   },
   "item": [
     {
@@ -19,7 +19,8 @@
               "\r",
               "var jsonData = pm.response.json();\r",
               "if (jsonData.token) {\r",
-              "    pm.collectionVariables.set(\"token\", jsonData.token);\r",
+              "   pm.environment.set(\"token\", jsonData.token);\r",
+              "    //pm.collectionVariables.set(\"token\", jsonData.token);\r",
               "}"
             ],
             "type": "text/javascript",
@@ -2885,11 +2886,11 @@
   ],
   "variable": [
     {
-      "key": "token",
-      "value": ""
+      "key": "baseUrl",
+      "value": "https://lms-hackathon-api-april-2026-8b55b53c8fab.herokuapp.com/lms"
     },
     {
-      "key": "baseUrl",
+      "key": "token",
       "value": ""
     },
     {
