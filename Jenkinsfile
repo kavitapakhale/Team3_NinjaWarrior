@@ -25,7 +25,6 @@ pipeline {
         stage('Run API Tests') {
             steps {
                 // Running Newman against your collection in the repo
-                echo "Going to run newman."
                 withCredentials([usernamePassword(credentialsId: 'API_PASSWORD', 
                                   usernameVariable: 'API_USER', 
                                   passwordVariable: 'API_PASS')]) {
