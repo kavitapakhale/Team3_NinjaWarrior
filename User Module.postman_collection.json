@@ -1,0 +1,4638 @@
+{
+  "info": {
+    "_postman_id": "9b286885-48b3-49bf-a6b5-7a4aae865740",
+    "name": "User Module",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54053929"
+  },
+  "item": [
+    {
+      "name": "User token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var responseBody = pm.response.json();\r",
+              "pm.collectionVariables.set(\"token\", responseBody.token);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n \"password\": \"Team03@3003\",\r\n \"userLoginEmailId\": \"Team03@gmail.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lms-hackathon-api-april-2026-8b55b53c8fab.herokuapp.com/lms/login",
+          "protocol": "https",
+          "host": [
+            "lms-hackathon-api-april-2026-8b55b53c8fab",
+            "herokuapp",
+            "com"
+          ],
+          "path": [
+            "lms",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role ADMIN",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"EST\",\r\n  \"userVisaStatus\": \"US-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R01\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role ADMIN_NS_Visa",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"MST\",\r\n  \"userVisaStatus\": \"Not-Specified\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Computer Science\",\r\n  \"userEduPg\": \"Master of Computer Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R01\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role Staff_NS_Visa",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"MST\",\r\n  \"userVisaStatus\": \"Not-Specified\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Computer Science\",\r\n  \"userEduPg\": \"Master of Computer Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R02\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role Student_NS_Visa",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"MST\",\r\n  \"userVisaStatus\": \"Not-Specified\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Computer Science\",\r\n  \"userEduPg\": \"Master of Computer Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R03\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role ADMIN_GC-EAD",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"IST\",\r\n  \"userVisaStatus\": \"GC-EAD\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Computer Science\",\r\n  \"userEduPg\": \"Master of Computer Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R01\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role Staff_GC-EAD",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"IST\",\r\n  \"userVisaStatus\": \"GC-EAD\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Computer Science\",\r\n  \"userEduPg\": \"Master of Computer Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R02\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role ADMIN_H4-EAD",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"MST\",\r\n  \"userVisaStatus\": \"H4-EAD\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"BBA\",\r\n  \"userEduPg\": \"MBA\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R01\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role Student_H4-EAD",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"H4-EAD\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"BBA\",\r\n  \"userEduPg\": \"MBA\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R03\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role ADMIN_H4",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"H4\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"BCA\",\r\n  \"userEduPg\": \"MCA\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R01\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role ADMIN_H1B",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"H1B\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"BCA\",\r\n  \"userEduPg\": \"MCA\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R01\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role ADMIN_Canada-EAD",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"Canada-EAD\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"BBA\",\r\n  \"userEduPg\": \"MCA\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R01\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role ADMIN_India-Citizen",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"Indian-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"BBA\",\r\n  \"userEduPg\": \"MCA\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R01\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role ADMIN_US-Citizen",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"EST\",\r\n  \"userVisaStatus\": \"US-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"B.Com\",\r\n  \"userEduPg\": \"M.Com\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R01\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role ADMIN_Canada-Citizen",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"IST\",\r\n  \"userVisaStatus\": \"Canada-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"B.Com\",\r\n  \"userEduPg\": \"M.Com\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R01\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role Staff",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"Canada-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R02\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role Student",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"Canada-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R03\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}{/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}{"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create User with Role ADMIN with mandatory fields missing",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  //\"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"Canada-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R01\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create User with Role Staff with mandatory fields missing",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  //\"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"US-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R02\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create User with Role Student with mandatory fields missing",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"Canada-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R03\"\r\n      //\"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role ADMIN_Invalid Data",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"123{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"EST\",\r\n  \"userVisaStatus\": \"US-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R01\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role ADMIN_Invalid Last Name",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"%^&{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"IST\",\r\n  \"userVisaStatus\": \"US-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R01\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role Student_Invalid_Visa",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"IST\",\r\n  \"userVisaStatus\": \"No\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R03\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role Student_Invalid_TimeZone",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"XYZ\",\r\n  \"userVisaStatus\": \"US-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R03\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role Staff_Invalid_Phone number format",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 123{{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"XYZ\",\r\n  \"userVisaStatus\": \"US-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R02\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user with Role Student_Invalid_Phone number",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 abc{{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"XYZ\",\r\n  \"userVisaStatus\": \"US-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R03\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create user Student role with Existing_Phone number",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userFirstName\": \"{{userFirstName}}\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 1234567890\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"IST\",\r\n  \"userVisaStatus\": \"US-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userComments\": \"Admin\",\r\n  \"userLogin\": {\r\n    \"loginStatus\": \"active\",\r\n    \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  },\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R03\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Users",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Users Active Users",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/activeUsers",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "activeUsers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get emails of All Users Active Users",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/fetch-emails",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "fetch-emails"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All roles",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/roles",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "roles"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get users by userId",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/U10",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "U10"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get users by Non-Exist userId",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/U10000",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "U10000"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All users with roles",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roles",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roles"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All users with non exist roles",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roles/R05",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roles",
+            "R05"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get user status with role id",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/byStatus",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "byStatus"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get users by ProgramBatch",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/programBatch/213",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "programBatch",
+            "213"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get users by ProgramBatch-Non Exist batch id",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/programBatch/2135",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "programBatch",
+            "2135"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get users by ProgramId",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/programs/213",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "programs",
+            "213"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get users by Non Exist ProgramId",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/programs/213456",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "programs",
+            "213456"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get users by RoleId",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roles/R02",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roles",
+            "R02"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get user batchId by userId",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/user/U326",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "user",
+            "U326"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get users by Non Exist RoleId",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roles/R10",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roles",
+            "R10"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all users with filter",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/v2/users?roleId=R01",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "v2",
+            "users"
+          ],
+          "query": [
+            {
+              "key": "roleId",
+              "value": "R01"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all users with filterNon exist role id_BUG",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/v2/users?roleId=Z01",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "v2",
+            "users"
+          ],
+          "query": [
+            {
+              "key": "roleId",
+              "value": "Z01"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get user Details by ID",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/details/U232",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "details",
+            "U232"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get user Details by Non Exist ID_BUG",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/details/U23223",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "details",
+            "U23223"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update user by userId",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "//pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"userComments\":\"updating user\",\r\n    \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userFirstName\": \"UpdatedUser\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"Canada-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \r\n   \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  \r\n  \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/{{userId}}",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "{{userId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update user roleId",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "//pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userRoleList\": [\r\n    {\r\n      \"roleId\": \"R02\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleId/{{userId}}",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleId",
+            "{{userId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update user role Program batch status",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "//pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n\"programId\": 0,\r\n\"roleId\": \"R03\",\r\n\"userRoleProgramBatches\": [\r\n{\r\n\"batchId\": 0,\r\n\"userRoleProgramBatchStatus\": \"Active\"\r\n}\r\n]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleProgramBatchStatus/{{userId}}",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleProgramBatchStatus",
+            "{{userId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update user role Program batch status_non exist",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "//pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n\"programId\": 10,\r\n\"roleId\": \"R03\",\r\n\"userRoleProgramBatches\": [\r\n{\r\n\"batchId\": \"10\",\r\n\"userRoleProgramBatchStatus\": \"Active\"\r\n}\r\n]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleProgramBatchStatus/{{userId}}",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleProgramBatchStatus",
+            "{{userId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update user role Program batch status_missing details",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "//pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n\"programId\": 10,\r\n\"roleId\": \"R03\",\r\n\"userRoleProgramBatches\": [\r\n{\r\n\"batchId\": \"10\"\r\n//\"userRoleProgramBatchStatus\": \"Active\"\r\n}\r\n]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleProgramBatchStatus/{{userId}}",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleProgramBatchStatus",
+            "{{userId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update user roleId Non exist roleid",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "//pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userRoleList\": [\r\n    {\r\n      \"roleId\": \"Z02\",\r\n      \"userRoleStatus\": \"active\"\r\n    }\r\n  ]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/roleId/{{userId}}",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "roleId",
+            "{{userId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update user by Non exist userId",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "//pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"userComments\":\"updating user\",\r\n    \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  \"userFirstName\": \"UpdatedUser\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"Canada-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \r\n   \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  \r\n  \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/{{userId}}",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "{{userId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update user Login status",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n\"userLoginEmail\": \"updateuser@gmail.com\",\r\n\"loginStatus\": \"Active\",\r\n\"status\": \"Active\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/userLogin/U300",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "userLogin",
+            "U300"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update user Login status_invalid",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n\"userLoginEmail\": \"updateuser@gmail.com\",\r\n\"loginStatus\": \"string\",\r\n\"status\": \"Active\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/userLogin/U300",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "userLogin",
+            "U300"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update user Login status_Invalid ID",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n\"userLoginEmail\": \"updateuser@gmail.com\",\r\n\"loginStatus\": \"Active\",\r\n\"status\": \"Active\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/userLogin/U00",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "userLogin",
+            "U00"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update user by userId_Missing mandatory fields",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "//pm.collectionVariables.set(\"userFirstName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "pm.collectionVariables.set(\"userLastName\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "pm.collectionVariables.set(\"userMiddleName\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              "\r",
+              "//phone number \r",
+              "function randomTenDigits() {\r",
+              "    let num = '';\r",
+              "    for (let i = 0; i < 10; i++) {\r",
+              "        num += Math.floor(Math.random() * 10);\r",
+              "    }\r",
+              "    return num;\r",
+              "}\r",
+              "pm.collectionVariables.set(\"userPhoneNumber\", randomTenDigits());\r",
+              "//pm.collectionVariables.set(\"phoneNumber\", pm.variables.replaceIn(\"{{$randomPhoneNumber}}\"));\r",
+              "\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLocation\", pm.variables.replaceIn(\"{{$randomCity}}\"));\r",
+              "pm.collectionVariables.set(\"userLinkedinUrl\", pm.variables.replaceIn(\"{{$randomUrl}}\"));\r",
+              "pm.collectionVariables.set(\"loginEmail\", pm.variables.replaceIn(\"{{$randomEmail}}\"));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"userComments\":\"updating user\",\r\n    \"userEduUg\": \"Bachelor of Science\",\r\n  \"userEduPg\": \"Master of Science\",\r\n  //\"userFirstName\": \"UpdatedUser\",\r\n  \"userLastName\": \"{{userLastName}}\",\r\n  \"userMiddleName\": \"{{userMiddleName}}\",\r\n  \"userPhoneNumber\": \"+91 {{userPhoneNumber}}\",\r\n  \"userLocation\": \"{{userLocation}}\",\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"Canada-Citizen\",\r\n  \"userLinkedinUrl\": \"www.linkedin.com/in/{{userFirstName}}\",\r\n  \r\n   \"userLoginEmail\": \"{{userFirstName}}123@gmail.com\"\r\n  \r\n  \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/{{userId}}",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "{{userId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Non exist User",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/U500",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "U500"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete User",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/U05",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "U05"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete User Invalid ID",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "pm.test(\"Successful POST request\", function () {\r",
+              "    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BaseUrl}}/users/Z05",
+          "host": [
+            "{{BaseUrl}}"
+          ],
+          "path": [
+            "users",
+            "Z05"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "userFirstName",
+      "value": ""
+    },
+    {
+      "key": "userLastName",
+      "value": ""
+    },
+    {
+      "key": "userMiddleName",
+      "value": ""
+    },
+    {
+      "key": "phoneNumber",
+      "value": ""
+    },
+    {
+      "key": "userLocation",
+      "value": ""
+    },
+    {
+      "key": "userLinkedinUrl",
+      "value": ""
+    },
+    {
+      "key": "loginEmail",
+      "value": ""
+    },
+    {
+      "key": "userPhoneNumber",
+      "value": ""
+    },
+    {
+      "key": "BaseUrl",
+      "value": ""
+    }
+  ]
+}
