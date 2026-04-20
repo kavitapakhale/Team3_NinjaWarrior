@@ -1,0 +1,956 @@
+{
+  "info": {
+    "_postman_id": "9d219ed3-74b9-48db-b9e9-3b7e962200f6",
+    "name": "User login controller Copy",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20615861"
+  },
+  "item": [
+    {
+      "name": "User Signin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "var jsonData = pm.response.json();\r",
+              "if (jsonData.token) {\r",
+              "    pm.collectionVariables.set(\"token\", jsonData.token);\r",
+              "}\r",
+              "\r",
+              "\r",
+              "let res;\r",
+              "try {\r",
+              "    res = pm.response.json();\r",
+              "} catch (e) {\r",
+              "    res = {};\r",
+              "}\r",
+              "\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "\r",
+              "    const schema = {\r",
+              "        type: \"object\",\r",
+              "        required: [\"token\", \"type\", \"userId\", \"email\", \"roles\", \"status\", \"passwordExpired\"],\r",
+              "        properties: {\r",
+              "            token: { type: \"string\" },\r",
+              "            type: { type: \"string\" },\r",
+              "            userId: { type: \"string\" },\r",
+              "            email: { type: \"string\" },\r",
+              "            roles: { type: \"array\" },\r",
+              "            status: { type: \"string\" },\r",
+              "            passwordExpired: { type: \"boolean\" }\r",
+              "        }\r",
+              "    };\r",
+              "\r",
+              "    pm.test(\"Schema is valid\", function () {\r",
+              "        pm.response.to.have.jsonSchema(schema);\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Token is present\", function () {\r",
+              "        pm.expect(res.token).to.be.a(\"string\");\r",
+              "    });\r",
+              "\r",
+              "    if (pm.response.code === 401) {\r",
+              "pm.test(\"Error exists\", function () {\r",
+              "pm.expect(pm.response.text()).to.not.be.empty;\r",
+              "});\r",
+              "}\r",
+              "\r",
+              "\r",
+              "pm.test(\"Response time < 2s\", function () {\r",
+              "pm.expect(pm.response.responseTime).to.be.below(500);\r",
+              "});\r",
+              "\r",
+              "} \r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \r\n  \"userLoginEmailId\": \"{{username}}\", \r\n  \"password\": \"{{password}}\"\r\n} \r\n\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "User Signin with out userloginId credentials",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "\r",
+              "var jsonData = pm.response.json();\r",
+              "if (jsonData.token) {\r",
+              "    pm.collectionVariables.set(\"token\", jsonData.token);\r",
+              "}\r",
+              "\r",
+              "\r",
+              "let res;\r",
+              "try {\r",
+              "    res = pm.response.json();\r",
+              "} catch (e) {\r",
+              "    res = {};\r",
+              "}\r",
+              "\r",
+              "\r",
+              "    \r",
+              "pm.test(\"Status code is 401\", function () {\r",
+              "    pm.response.to.have.status(401);\r",
+              "});\r",
+              "\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \r\n  \"userLoginEmailId\": \"{{username}}\", \r\n  \"password\": \"Tea03@3003\"\r\n} \r\n\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "User Signin with empty request body",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "var jsonData = pm.response.json();\r",
+              "if (jsonData.token) {\r",
+              "    pm.collectionVariables.set(\"token\", jsonData.token);\r",
+              "}\r",
+              "\r",
+              "\r",
+              "let res;\r",
+              "try {\r",
+              "    res = pm.response.json();\r",
+              "} catch (e) {\r",
+              "    res = {};\r",
+              "}\r",
+              "\r",
+              "\r",
+              "    \r",
+              "pm.test(\"Status code is 401\", function () {\r",
+              "    pm.response.to.have.status(401);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "\r",
+              "pm.test(\"Response time < 2s\", function () {\r",
+              "pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+              "});\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \r\n  \"userLoginEmailId\": \"{{username}}\", \r\n  \"password\": \"Tea03@3003\"\r\n} \r\n\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Forgot Password",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let res;\r",
+              "try {\r",
+              "    res = pm.response.json();\r",
+              "} catch (e) {\r",
+              "    res = {};\r",
+              "}\r",
+              "\r",
+              "\r",
+              "pm.test(\"Status code is 200  0r 201\", function () {\r",
+              "    pm.expect([200,201]).to.include(pm.response.code);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "\r",
+              "    const successSchema = {\r",
+              "        type: \"object\",\r",
+              "        required: [\"token\", \"type\", \"userId\", \"email\", \"roles\", \"status\", \"passwordExpired\"],\r",
+              "        properties: {\r",
+              "            token: { type: \"string\" },\r",
+              "            type: { type: \"string\" },\r",
+              "            userId: { type: \"string\" },\r",
+              "            email: { type: \"string\" },\r",
+              "            roles: {\r",
+              "                type: \"array\",\r",
+              "                items: { type: \"string\" }\r",
+              "            },\r",
+              "            status: { type: \"string\" },\r",
+              "            passwordExpired: { type: \"boolean\" }\r",
+              "        }\r",
+              "    };\r",
+              "    pm.test(\"Response schema is valid for 200\", function () {\r",
+              "        pm.response.to.have.jsonSchema(successSchema);\r",
+              "    });\r",
+              "    pm.test(\"Response schema is valid for 201\", function () {\r",
+              "        pm.response.to.have.jsonSchema(successSchema);\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Token is present\", function () {\r",
+              "        pm.expect(res.token).to.be.a(\"string\");\r",
+              "        pm.expect(res.token).to.not.be.empty;\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Type is present\", function () {\r",
+              "        pm.expect(res.type).to.be.a(\"string\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"User ID is present\", function () {\r",
+              "        pm.expect(res.userId).to.be.a(\"string\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Email is present\", function () {\r",
+              "        pm.expect(res.email).to.be.a(\"string\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Roles is an array\", function () {\r",
+              "        pm.expect(res.roles).to.be.an(\"array\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Status is present\", function () {\r",
+              "        pm.expect(res.status).to.be.a(\"string\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"PasswordExpired is boolean\", function () {\r",
+              "        pm.expect(res.passwordExpired).to.be.a(\"boolean\");\r",
+              "    });\r",
+              "}\r",
+              "\r",
+              "\r",
+              "if (pm.response.code === 400) {\r",
+              "\r",
+              "    pm.test(\"Bad Request response body is not empty\", function () {\r",
+              "        pm.expect(pm.response.text()).to.not.be.empty;\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Response contains invalid request body message\", function () {\r",
+              "        pm.expect(pm.response.text().toLowerCase()).to.include(\"invalid\");\r",
+              "    });\r",
+              "}\r",
+              "\r",
+              "\r",
+              "pm.test(\"Response time is > 2m\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \r\n\"userLoginEmailId\":\"{{username}}\"\r\n} \r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/login/forgotpassword/confirmEmail",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "login",
+            "forgotpassword",
+            "confirmEmail"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Forgot password empty request body",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let res;\r",
+              "try {\r",
+              "    res = pm.response.json();\r",
+              "} catch (e) {\r",
+              "    res = {};\r",
+              "}\r",
+              "\r",
+              "\r",
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time is > 2m\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \r\n\"userLoginEmailId\":\"\"\r\n} \r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/login/forgotpassword/confirmEmail",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "login",
+            "forgotpassword",
+            "confirmEmail"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reset Password",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let res;\r",
+              "try {\r",
+              "    res = pm.response.json();\r",
+              "} catch (e) {\r",
+              "    res = {};\r",
+              "}\r",
+              "\r",
+              "pm.test(\"Status code is 200 or 400\", function () {\r",
+              "    pm.expect([200, 400]).to.include(pm.response.code);\r",
+              "});\r",
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "    const schema = {\r",
+              "        type: \"object\",\r",
+              "        required: [\"message\", \"success\"],\r",
+              "        properties: {\r",
+              "            message: { type: \"string\" },\r",
+              "            success: { type: \"boolean\" }\r",
+              "        }\r",
+              "    };\r",
+              "\r",
+              "    pm.test(\"Schema is valid for 200 response\", function () {\r",
+              "        pm.response.to.have.jsonSchema(schema);\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Message is present\", function () {\r",
+              "        pm.expect(res.message).to.be.a(\"string\");\r",
+              "        pm.expect(res.message).to.not.be.empty;\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Success is boolean\", function () {\r",
+              "        pm.expect(res.success).to.be.a(\"boolean\");\r",
+              "    });\r",
+              "}\r",
+              "\r",
+              "if (pm.response.code === 400) {\r",
+              "    pm.test(\"Error response is not empty\", function () {\r",
+              "        pm.expect(pm.response.text()).to.not.be.empty;\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Error message contains invalid text\", function () {\r",
+              "        pm.expect(pm.response.text().toLowerCase()).to.include(\"invalid\");\r",
+              "    });\r",
+              "}\r",
+              "\r",
+              "pm.test(\"Response time < 2s\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "let emailFromCsv = pm.iterationData.get(\"userLoginEmailId\");\r",
+              "let passwordFromCsv = pm.iterationData.get(\"resetpassword\");\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLoginEmailId\", emailFromCsv);\r",
+              "pm.collectionVariables.set(\"resetpassword\", passwordFromCsv);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n   \"userLoginEmailId\": \"{{username}}\", \r\n  \"password\": \"{{password}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/resetPassword",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "resetPassword"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reset Password With out emailId",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let res;\r",
+              "try {\r",
+              "    res = pm.response.json();\r",
+              "} catch (e) {\r",
+              "    res = {};\r",
+              "}\r",
+              "\r",
+              "pm.test(\"Status code is 200 or 400\", function () {\r",
+              "    pm.expect([200, 400]).to.include(pm.response.code);\r",
+              "});\r",
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "    const schema = {\r",
+              "        type: \"object\",\r",
+              "        required: [\"message\", \"success\"],\r",
+              "        properties: {\r",
+              "            message: { type: \"string\" },\r",
+              "            success: { type: \"boolean\" }\r",
+              "        }\r",
+              "    };\r",
+              "\r",
+              "    pm.test(\"Schema is valid for 200 response\", function () {\r",
+              "        pm.response.to.have.jsonSchema(schema);\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Message is present\", function () {\r",
+              "        pm.expect(res.message).to.be.a(\"string\");\r",
+              "        pm.expect(res.message).to.not.be.empty;\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Success is boolean\", function () {\r",
+              "        pm.expect(res.success).to.be.a(\"boolean\");\r",
+              "    });\r",
+              "}\r",
+              "\r",
+              "if (pm.response.code === 400) {\r",
+              "    pm.test(\"Error response is not empty\", function () {\r",
+              "        pm.expect(pm.response.text()).to.not.be.empty;\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Error message contains invalid text\", function () {\r",
+              "        pm.expect(pm.response.text().toLowerCase()).to.include(\"invalid\");\r",
+              "    });\r",
+              "}\r",
+              "\r",
+              "pm.test(\"Response time < 2s\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "let emailFromCsv = pm.iterationData.get(\"userLoginEmailId\");\r",
+              "let passwordFromCsv = pm.iterationData.get(\"resetpassword\");\r",
+              "\r",
+              "pm.collectionVariables.set(\"userLoginEmailId\", emailFromCsv);\r",
+              "pm.collectionVariables.set(\"resetpassword\", passwordFromCsv);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \r\n  \"password\": \"{{password}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/resetPassword",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "resetPassword"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "User Logout",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let resText;\r",
+              "try {\r",
+              "    resText = pm.response.text();\r",
+              "} catch (e) {\r",
+              "    resText = \"\";\r",
+              "}\r",
+              "\r",
+              "\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "\r",
+              "    pm.test(\"Response body is not empty\", function () {\r",
+              "        pm.expect(resText).to.not.be.empty;\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Response is a string\", function () {\r",
+              "        pm.expect(resText).to.be.a(\"string\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Logout message contains 'logout'\", function () {\r",
+              "        pm.expect(resText.toLowerCase()).to.include(\"logout\");\r",
+              "    });\r",
+              "}\r",
+              "\r",
+              "\r",
+              "if (pm.response.code === 401) {\r",
+              "    pm.test(\"Error message is present\", function () {\r",
+              "        pm.expect(pm.response.text()).to.not.be.empty;\r",
+              "    });\r",
+              "}\r",
+              "\r",
+              "\r",
+              "pm.test(\"Response time < 2s\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/logoutlms",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "logoutlms"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "User Logout invalid endpoint",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let resText;\r",
+              "try {\r",
+              "    resText = pm.response.text();\r",
+              "} catch (e) {\r",
+              "    resText = \"\";\r",
+              "}\r",
+              "\r",
+              "\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "\r",
+              "    pm.test(\"Response body is not empty\", function () {\r",
+              "        pm.expect(resText).to.not.be.empty;\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Response is a string\", function () {\r",
+              "        pm.expect(resText).to.be.a(\"string\");\r",
+              "    });\r",
+              "\r",
+              "    pm.test(\"Logout message contains 'logout'\", function () {\r",
+              "        pm.expect(resText.toLowerCase()).to.include(\"logout\");\r",
+              "    });\r",
+              "}\r",
+              "\r",
+              "\r",
+              "if (pm.response.code === 401) {\r",
+              "    pm.test(\"Error message is present\", function () {\r",
+              "        pm.expect(pm.response.text()).to.not.be.empty;\r",
+              "    });\r",
+              "}\r",
+              "\r",
+              "\r",
+              "pm.test(\"Response time < 2s\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/logoutlms",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "logoutlms"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "username",
+      "value": ""
+    },
+    {
+      "key": "password",
+      "value": ""
+    },
+    {
+      "key": "base_url",
+      "value": ""
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "value": ""
+    },
+    {
+      "key": "resetpassword",
+      "value": ""
+    },
+    {
+      "key": "userLoginEmailId",
+      "value": ""
+    }
+  ]
+}
