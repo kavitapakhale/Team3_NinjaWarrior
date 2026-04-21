@@ -3,7 +3,7 @@
     "_postman_id": "0ab1081a-ef9f-480a-9bae-651357633af1",
     "name": "Team3_NinjaWarrior",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "54134360"
+    "_exporter_id": "54134264"
   },
   "item": [
     {
@@ -5963,8 +5963,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 201\", function () {\r",
-                  "    pm.response.to.have.status(201);\r",
+                  "pm.test(\"Status code is 400 for missing mandatory fields\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
                   "});\r",
                   ""
                 ],
@@ -6045,8 +6045,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 400 for missing mandatory fields\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -6126,8 +6126,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 400 for missing mandatory fields\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -6207,8 +6207,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 400 for missing mandatory fields\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -6288,8 +6288,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 400 for missing mandatory fields\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -6369,8 +6369,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 400 for missing mandatory fields\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
                   "});\r",
                   ""
                 ],
@@ -6451,8 +6451,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 400 for missing mandatory fields\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -6533,7 +6533,9 @@
               "script": {
                 "exec": [
                   "\r",
-                  ""
+                  "pm.test(\"Status code is 400 for missing mandatory fields\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -6612,8 +6614,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 400 for missing mandatory fields\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
                   "});\r",
                   ""
                 ],
@@ -6695,8 +6697,8 @@
               "script": {
                 "exec": [
                   "\r",
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 400 for missing mandatory fields\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -7091,10 +7093,10 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  ""
+                  "\r",
+                  "pm.test(\"Status code is 404 for Not Found Details\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});"
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -7225,8 +7227,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 404 for Not Found Details\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
                   "});\r",
                   ""
                 ],
@@ -7428,8 +7430,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 404 for Not Found Details\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
                   "});\r",
                   ""
                 ],
@@ -7564,8 +7566,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 404 for Not Found Details\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
                   "});\r",
                   ""
                 ],
@@ -7766,9 +7768,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "\r",
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 404 for Not Found Details\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -8375,8 +8376,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 404 for Not Found Details\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -8408,9 +8409,9 @@
               }
             },
             "url": {
-              "raw": "{{BaseUrl}}/users/roleProgramBatchStatus/U7890",
+              "raw": "{{baseUrl}}/users/roleProgramBatchStatus/U7890",
               "host": [
-                "{{BaseUrl}}"
+                "{{baseUrl}}"
               ],
               "path": [
                 "users",
@@ -8457,8 +8458,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 400 for missing mandatory fields\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -8490,9 +8491,9 @@
               }
             },
             "url": {
-              "raw": "{{BaseUrl}}/users/roleProgramBatchStatus/U10",
+              "raw": "{{baseUrl}}/users/roleProgramBatchStatus/U10",
               "host": [
-                "{{BaseUrl}}"
+                "{{baseUrl}}"
               ],
               "path": [
                 "users",
@@ -8539,8 +8540,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 404 Not Found deatils\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -8572,9 +8573,9 @@
               }
             },
             "url": {
-              "raw": "{{BaseUrl}}/users/roleId/U1234",
+              "raw": "{{baseUrl}}/users/roleId/U1234",
               "host": [
-                "{{BaseUrl}}"
+                "{{baseUrl}}"
               ],
               "path": [
                 "users",
@@ -8621,8 +8622,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 404 for Not Found details\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -8654,9 +8655,9 @@
               }
             },
             "url": {
-              "raw": "{{BaseUrl}}/users/U6789",
+              "raw": "{{baseUrl}}/users/U6789",
               "host": [
-                "{{BaseUrl}}"
+                "{{baseUrl}}"
               ],
               "path": [
                 "users",
@@ -8717,9 +8718,9 @@
               }
             },
             "url": {
-              "raw": "{{BaseUrl}}/users/userLogin/U300",
+              "raw": "{{baseUrl}}/users/userLogin/U300",
               "host": [
-                "{{BaseUrl}}"
+                "{{baseUrl}}"
               ],
               "path": [
                 "users",
@@ -8781,9 +8782,9 @@
               }
             },
             "url": {
-              "raw": "{{BaseUrl}}/users/userLogin/U300",
+              "raw": "{{baseUrl}}/users/userLogin/U300",
               "host": [
-                "{{BaseUrl}}"
+                "{{baseUrl}}"
               ],
               "path": [
                 "users",
@@ -8812,8 +8813,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 404 Not Found details\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -8845,9 +8846,9 @@
               }
             },
             "url": {
-              "raw": "{{BaseUrl}}/users/userLogin/U00",
+              "raw": "{{baseUrl}}/users/userLogin/U00",
               "host": [
-                "{{BaseUrl}}"
+                "{{baseUrl}}"
               ],
               "path": [
                 "users",
@@ -8894,8 +8895,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 400 for missing mandatory fields\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -8927,9 +8928,9 @@
               }
             },
             "url": {
-              "raw": "{{BaseUrl}}/users/U100",
+              "raw": "{{baseUrl}}/users/U100",
               "host": [
-                "{{BaseUrl}}"
+                "{{baseUrl}}"
               ],
               "path": [
                 "users",
@@ -8957,8 +8958,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 404 Not Found \", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -8990,13 +8991,13 @@
               }
             },
             "url": {
-              "raw": "{{BaseUrl}}/users/U500",
+              "raw": "{{baseUrl}}/users/U5000",
               "host": [
-                "{{BaseUrl}}"
+                "{{baseUrl}}"
               ],
               "path": [
                 "users",
-                "U500"
+                "U5000"
               ]
             }
           },
@@ -9053,9 +9054,9 @@
               }
             },
             "url": {
-              "raw": "{{BaseUrl}}/users/U05",
+              "raw": "{{baseUrl}}/users/U05",
               "host": [
-                "{{BaseUrl}}"
+                "{{baseUrl}}"
               ],
               "path": [
                 "users",
@@ -9083,8 +9084,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "pm.test(\"Status code is 404\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -9116,9 +9117,9 @@
               }
             },
             "url": {
-              "raw": "{{BaseUrl}}/users/Z05",
+              "raw": "{{baseUrl}}/users/Z05",
               "host": [
-                "{{BaseUrl}}"
+                "{{baseUrl}}"
               ],
               "path": [
                 "users",
@@ -11266,7 +11267,7 @@
     },
     {
       "key": "baseUrl",
-      "value": ""
+      "value": "https://lms-hackathon-api-april-2026-8b55b53c8fab.herokuapp.com/lms"
     },
     {
       "key": "ProgramId",
@@ -11282,31 +11283,31 @@
     },
     {
       "key": "userFirstName",
-      "value": ""
+      "value": "Alexandrea"
     },
     {
       "key": "userLastName",
-      "value": ""
+      "value": "Yost"
     },
     {
       "key": "userMiddleName",
-      "value": ""
+      "value": "Randi"
     },
     {
       "key": "userPhoneNumber",
-      "value": ""
+      "value": "9823144295"
     },
     {
       "key": "userLocation",
-      "value": ""
+      "value": "Roobshire"
     },
     {
       "key": "userLinkedinUrl",
-      "value": ""
+      "value": "http://noelia.biz"
     },
     {
       "key": "loginEmail",
-      "value": ""
+      "value": "Stewart_Mohr11@gmail.com"
     },
     {
       "key": "csId",
