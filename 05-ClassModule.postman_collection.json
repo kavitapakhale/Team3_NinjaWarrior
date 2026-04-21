@@ -27,7 +27,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "\n{\n \"password\": \"{{password}}\",\n \"userLoginEmailId\": \"{{username}}\"\n}\n",
+          "raw": "\n{\n \"password\": \"Team03@3003\",\n \"userLoginEmailId\": \"Team03@gmail.com\"\n}\n",
           "options": {
             "raw": {
               "language": "json"
@@ -35,125 +35,16 @@
           }
         },
         "url": {
-          "raw": "https://lms-hackathon-api-april-2026-8b55b53c8fab.herokuapp.com/lms/login",
-          "protocol": "https",
+          "raw": "{{baseurl}}/login",
           "host": [
-            "lms-hackathon-api-april-2026-8b55b53c8fab",
-            "herokuapp",
-            "com"
+            "{{baseurl}}"
           ],
           "path": [
-            "lms",
             "login"
           ]
         }
       },
-      "response": [
-        {
-          "name": "GenerateToken",
-          "originalRequest": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "\n{\n \"password\": \"Team03@3003\",\n \"userLoginEmailId\": \"Team03@gmail.com\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{Basr_Url}}/login",
-              "host": [
-                "{{Basr_Url}}"
-              ],
-              "path": [
-                "login"
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": "Text",
-          "header": [
-            {
-              "key": "Cache-Control",
-              "value": "no-cache, no-store, max-age=0, must-revalidate"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Date",
-              "value": "Sun, 19 Apr 2026 16:15:15 GMT"
-            },
-            {
-              "key": "Expires",
-              "value": "0"
-            },
-            {
-              "key": "Nel",
-              "value": "{\"report_to\":\"heroku-nel\",\"response_headers\":[\"Via\"],\"max_age\":3600,\"success_fraction\":0.01,\"failure_fraction\":0.1}"
-            },
-            {
-              "key": "Pragma",
-              "value": "no-cache"
-            },
-            {
-              "key": "Report-To",
-              "value": "{\"group\":\"heroku-nel\",\"endpoints\":[{\"url\":\"https://nel.heroku.com/reports?s=eHRDx0I6zY2kGacffYEbNRhK5fnZgHTJ%2Bst%2FxWuGPao%3D\\u0026sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add\\u0026ts=1776615314\"}],\"max_age\":3600}"
-            },
-            {
-              "key": "Reporting-Endpoints",
-              "value": "heroku-nel=\"https://nel.heroku.com/reports?s=eHRDx0I6zY2kGacffYEbNRhK5fnZgHTJ%2Bst%2FxWuGPao%3D&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&ts=1776615314\""
-            },
-            {
-              "key": "Server",
-              "value": "Heroku"
-            },
-            {
-              "key": "Strict-Transport-Security",
-              "value": "max-age=31536000 ; includeSubDomains"
-            },
-            {
-              "key": "Vary",
-              "value": "Origin"
-            },
-            {
-              "key": "Vary",
-              "value": "Access-Control-Request-Method"
-            },
-            {
-              "key": "Vary",
-              "value": "Access-Control-Request-Headers"
-            },
-            {
-              "key": "Via",
-              "value": "1.1 heroku-router"
-            },
-            {
-              "key": "X-Content-Type-Options",
-              "value": "nosniff"
-            },
-            {
-              "key": "X-Frame-Options",
-              "value": "DENY"
-            },
-            {
-              "key": "X-Xss-Protection",
-              "value": "0"
-            },
-            {
-              "key": "Content-Length",
-              "value": "323"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"token\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtMDNAZ21haWwuY29tIiwiaWF0IjoxNzc2NjE1MzE1LCJleHAiOjE3NzY2NDQxMTV9.bgDyIH2MqalPIp3n8QGtiwJBd33EAF76uaOFKU-ThHPxJmDZzGPYIlBlYSpaVrhfF2DoGreT0tDwLTYffOTbGw\",\n    \"type\": \"Bearer\",\n    \"userId\": \"U46\",\n    \"email\": \"Team03@gmail.com\",\n    \"roles\": [\n        \"ROLE_ADMIN\"\n    ],\n    \"status\": \"active\",\n    \"passwordExpired\": false\n}"
-        }
-      ]
+      "response": []
     },
     {
       "name": "GetAllClasses-SuccessScenario",
@@ -989,6 +880,21 @@
     },
     {
       "name": "GetClassByStaffId-InvalidStaffId",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 404\", function () {",
+              "    pm.response.to.have.status(404);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
       "request": {
         "auth": {
           "type": "bearer",
@@ -1882,7 +1788,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n\"programDescription\": \"Testing\",\n\"programName\": \"RegressionTestingLatest\",\n\"programStatus\": \"Active\"\n}\n",
+          "raw": "{\n\"programDescription\": \"Testing\",\n\"programName\": \"RegTestingLatestTwo\",\n\"programStatus\": \"Active\"\n}\n",
           "options": {
             "raw": {
               "language": "json"
@@ -1938,7 +1844,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n\"batchName\": \"RegressionTestingLatest_7\",\n\"batchNoOfClasses\": 6,\n\"batchStatus\": \"Active\",\n\"programId\":1716\n}",
+          "raw": "{\n\"batchName\": \"RegTestingLatestTwo_7\",\n\"batchNoOfClasses\": 6,\n\"batchStatus\": \"Active\",\n\"programId\":{{programid}}\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1996,7 +1902,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n\"userFirstName\":\"Poojita\",\n\"userLastName\": \"Menon\",\n\"userMiddleName\": \"Ashok\",\n\"userPhoneNumber\": \"+1 6815574830\",\n\"userLinkedinUrl\": \"www.linkedin.com\",\n\"userLocation\": \"USA\",\n\"userLogin\": {\n\"loginStatus\" : \"Active\",\n\"userLoginEmail\": \"Puja10@gmail.com\"\n},\n\"userRoleMaps\": [\n{\n\"roleId\": \"R02\",\n\"userRoleStatus\": \"Active\"\n}\n],\n\"userTimeZone\": \"PST\",\n\"userVisaStatus\": \"H1B\"\n}",
+          "raw": "{\n\"userFirstName\":\"Poojita\",\n\"userLastName\": \"Menon\",\n\"userMiddleName\": \"Ashok\",\n\"userPhoneNumber\": \"+1 6815574839\",\n\"userLinkedinUrl\": \"www.linkedin.com\",\n\"userLocation\": \"USA\",\n\"userLogin\": {\n\"loginStatus\" : \"Active\",\n\"userLoginEmail\": \"Puja20@gmail.com\"\n},\n\"userRoleMaps\": [\n{\n\"roleId\": \"R02\",\n\"userRoleStatus\": \"Active\"\n}\n],\n\"userTimeZone\": \"PST\",\n\"userVisaStatus\": \"H1B\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -2127,8 +2033,8 @@
           "listen": "test",
           "script": {
             "exec": [
-              "pm.test(\"Status code is 404\", function () {",
-              "    pm.response.to.have.status(404);",
+              "pm.test(\"Status code is 400\", function () {",
+              "    pm.response.to.have.status(400);",
               "});"
             ],
             "type": "text/javascript",
